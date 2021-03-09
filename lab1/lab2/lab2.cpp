@@ -15,7 +15,7 @@ public:
 class Dostawca: public Firma
 {
 public:
-    virtual void dostawa()
+    virtual void dostawa()//nie wykonuje sie - zastosowalem to aby wiedziec co ma robic metoda
     {
         do_uregulowania--;
     }
@@ -24,7 +24,7 @@ public:
 class Nabywca: public Firma
 {
 public:
-    virtual void sprzedaz()
+    virtual void sprzedaz()//nie wykonuje sie - zastosowalem to aby wiedziec co ma robic metoda
     {
         do_uregulowania++;
     }
@@ -66,13 +66,13 @@ class Komputery : public Dostawca
 
 int main()
 {
-    Monitory monitory;
+    Monitory monitoryZRajhu;
     Komputery komputer;
     Hurt hurtGliwice,hurtKato;
-    Detal *detal=new Detal[2];
+    Detal *detal=new Detal[3];
 
-    Firma* firmy[] = { &komputer,&monitory,&hurtGliwice,&hurtKato,&detal[0],&detal[1] };
-
+    Firma* firmy[] = { &komputer,&monitoryZRajhu,&hurtGliwice,&hurtKato,&detal[0],&detal[1],&detal[2] };
+ 
     int wartosc = 0;
 
     for (auto i : firmy)
@@ -84,16 +84,17 @@ int main()
             cout << "Nazwa nabywcy i kwota: ";
         }
 
-        Dostawca* dwa = dynamic_cast<Dostawca*>(i);
-        if (dwa)
+        Dostawca* drugi = dynamic_cast<Dostawca*>(i);
+        if (drugi)
         {
-            dwa->dostawa();
+            drugi->dostawa();
             cout << "Nazwa dostawcy i kwota: ";
         }
 
-        cout << typeid(*i).name() << ", " << i->do_uregulowania<<" zl\n";
+        cout << typeid(*i).name() << ", " << i->do_uregulowania<<" zl\n";//nie podanie wskaznika w typeid() skutkuje wypisaniem wskaznika na firme- klasy rodzica
         wartosc += i->do_uregulowania;
     }
     cout << "Saldo: " << wartosc<<" zl\n";
+    delete []detal;
 }
 
