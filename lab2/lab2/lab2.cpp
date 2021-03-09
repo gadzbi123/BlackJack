@@ -11,6 +11,7 @@ public:
 
 };
 
+
 class Blad_numeru
 {
 public:
@@ -20,32 +21,32 @@ public:
 class ZaDuzaLiczba :public Blad_numeru
 {
 public:
-    ZaDuzaLiczba() { Nazwa = "Za duzo cyfr"; }
+    ZaDuzaLiczba(string) { Nazwa = "Za duzo liczb"; }
 };
 
 class ZaMalaLiczba :public Blad_numeru
 {
 public:
-    ZaMalaLiczba() { Nazwa = "Za malo cyfr"; }
+    ZaMalaLiczba(string) { Nazwa = "Za malo liczb"; }
 };
 
 class BladKonwersji :public Blad_numeru
 {
 public:
-    BladKonwersji() { Nazwa = "Blad Konwersji"; }
+    BladKonwersji(string) { Nazwa = "Blad konwersji"; }
 };
 
 void DodajAbonenta(Abonent* klienci[])
 {
     int numer;
-    ZaDuzaLiczba zd();
-    ZaMalaLiczba zm();
-    BladKonwersji bk();
+    ZaDuzaLiczba zd("");
+    ZaMalaLiczba zm("");
+    BladKonwersji bk("");
     for (int i = 0; i < liczba; i++)
     {
         cout << "Podaj Cene Abonamentu, Cene Telefonu, Ilosc do zaplaty oraz Numer: ";
         cin >> klienci[i]->CenaAbonamentu >> klienci[i]->CenaTelefonu;
-        if (klienci[i]->CenaAbonamentu <= 0 or klienci[i]->CenaTelefonu <= 0)throw logic_error("Wartosci niedodatnie");
+        if (klienci[i]->CenaAbonamentu <= 0 or klienci[i]->CenaTelefonu <= 0)throw logic_error("Wartosci niedodatnie lub podales litery");
 
         klienci[i]->DoZaplaty = klienci[i]->CenaAbonamentu + klienci[i]->CenaTelefonu;
         if (klienci[i]->DoZaplaty > 1000)throw runtime_error("Ilosc do zaplaty przekroczyla 1000");
