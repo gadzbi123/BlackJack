@@ -1,6 +1,5 @@
 #pragma once
 #include "wx/wx.h"
-
 class cMain: public wxFrame
 {
 public:
@@ -8,8 +7,14 @@ public:
 	~cMain();
 
 public:
-	wxButton *m_button = nullptr;
-	wxTextCtrl* m_txt = nullptr;
-	wxListBox* m_list = nullptr;
+	int nFieldWidth = 10;
+	int nFieldHeight = 10;
+	wxButton**btn;
+	int* nField = nullptr;
+	bool bFirstClick = true;
+	void OnButtonClicked(wxCommandEvent& evt);
+
+	wxDECLARE_EVENT_TABLE();
 };
 
+//evt.skip(przestaje pytac reszte o klikniecie)
