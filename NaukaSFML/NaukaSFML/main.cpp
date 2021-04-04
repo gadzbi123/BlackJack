@@ -1,23 +1,26 @@
 #include<SFML/Graphics.hpp>
-
+#include<iostream>
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Beginner",sf::Style::Close | sf::Style::Titlebar| sf::Style::Resize); 
 
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        sf::Event evnt;
+        while (window.pollEvent(evnt)) 
         {
-            if (event.type == sf::Event::Closed)
+            switch (evnt.type)
+            {
+            case sf::Event::Closed:
                 window.close();
-        }
+                break;
+            case sf::Event::Resized:
+                std::cout << "New width and height: " << evnt.size.width << " " << evnt.size.height << std::endl;
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+                break;
+            }
+        }
+        
     }
 
     return 0;
