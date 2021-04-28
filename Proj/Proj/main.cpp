@@ -1,54 +1,121 @@
-﻿#include <iostream>
-#include <string>
-#include <SFML\Graphics.hpp>
+﻿#include "Entity.h"
+#include "Player.h"
+#include "Dealer.h"
 
-
-using namespace std;
-
-class Entity
+vector<string> vec_name_cards()
 {
-public:
-    string name;
-    //virtual void make_a_bet();
-};
+    vector<string> names_of_cards;
 
-class Player:public Entity
-{
-    //Saldo saldo;
-    int money;
-    int bet;
-public:
-    //void make_a_bet();
-};
+    //loop for numbers
+    for (int i = 2; i < 11; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (j == 0)
+                names_of_cards.push_back(to_string(i) + "h"); //hearts
+            if (j == 1)
+                names_of_cards.push_back(to_string(i) + "s"); //spades
+            if (j == 2)
+                names_of_cards.push_back(to_string(i) + "c"); //clubs
+            if (j == 3)
+                names_of_cards.push_back(to_string(i) + "d"); //diamonds
+            
+        }
+    }
 
-class Dealer :public Entity
-{
+    //loop for figures
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (i == 0)//Jacks
+            {
+                if (j == 0)
+                    names_of_cards.push_back("Jh"); //hearts
+                if (j == 1)
+                    names_of_cards.push_back("Js"); //spades
+                if (j == 2)
+                    names_of_cards.push_back("Jc"); //clubs
+                if (j == 3)
+                    names_of_cards.push_back("Jd"); //diamonds
+            }
 
-};
+            if (i == 1)//Queens
+            {
+                if (j == 0)
+                    names_of_cards.push_back("Qh"); //hearts
+                if (j == 1)
+                    names_of_cards.push_back("Qs"); //spades
+                if (j == 2)
+                    names_of_cards.push_back("Qc"); //clubs
+                if (j == 3)
+                    names_of_cards.push_back("Qd"); //diamonds
+            }
 
-/*vector<Entity>*/void createEntities()
-{
+            if (i == 2)//Kings
+            {
+                if (j == 0)
+                    names_of_cards.push_back("Kh"); //hearts
+                if (j == 1)
+                    names_of_cards.push_back("Ks"); //spades
+                if (j == 2)
+                    names_of_cards.push_back("Kc"); //clubs
+                if (j == 3)
+                    names_of_cards.push_back("Kd"); //diamonds
+            }
 
+            if (i == 3)//Aces
+            {
+                if(j == 0)
+                 names_of_cards.push_back("Ah"); //hearts
+                if (j == 1)
+                    names_of_cards.push_back("As"); //spades
+                if (j == 2)
+                    names_of_cards.push_back("Ac"); //clubs
+                if (j == 3)
+                    names_of_cards.push_back("Ad"); //diamonds
+            }
+        }
+    }
+    return names_of_cards;
 }
 
+class Card : sf::RectangleShape {
+
+public:
+    Card(sf::Vector2f size) : RectangleShape(size)
+    {
+
+        //this->setTextureRect
+    }
+};
+
+class Deck {
+    vector<Card> vec_cards;
+public:
+
+};
+
 class Windows{
+    virtual void Screen2() = 0;
 public:
     Windows() {};
-    virtual vector<string> Screen(sf::RenderWindow&)=0;
-    virtual void Screen2() = 0;
+    virtual void Screen(sf::RenderWindow&, vector<Entity*>&)=0;
 };
 
 class First :public Windows{
 public:
-    vector<string> Screen(sf::RenderWindow&) override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)override;
     virtual void Screen2() {};
 
 private:
+    vector<int> vec_values(const string&);
     vector<string> vec_names(const string& names);
+    vector<Entity*> createEntities(vector<string> names, vector<int>values);
 };
 
 class Second:public Windows {
-    vector<string> Screen(sf::RenderWindow&) override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent) override;
     virtual void Screen2() {};
 };
 
@@ -73,7 +140,55 @@ vector<string> First::vec_names(const string& names)
     return vector_names;
 }
 
-vector<string> First::Screen(sf::RenderWindow& window)
+vector<int> First::vec_values(const string& values)
+{
+    string word = "";
+    vector<int>vector_values;
+
+    for (auto x : values)
+    {
+        if (vector_values.size() < 3)
+        {
+            if (x == ' ')
+            {
+                vector_values.push_back(stoi(word));
+                word = "";
+            }
+            else
+                word = word + x;
+        }
+    }
+    return vector_values;
+}
+
+vector<Entity*> First::createEntities(vector<string> names, vector<int>values)
+{
+    int number_entities = names.size() + 1;
+    vector<Entity*> vec_ent;
+
+    if (names.size() > values.size())//if not enough values then push 0 as value.
+    {
+        values.push_back(0);
+        values.push_back(0);
+    }
+
+    for (int i = 0; i < number_entities; i++)
+    {
+        if (i == 0)
+        {
+            Entity* ent = new Dealer();
+            vec_ent.push_back(ent);
+        }
+        else
+        {
+            Entity* ent = new Player(names[i - 1], values[i - 1]);
+            vec_ent.push_back(ent);
+        }
+    }
+    return vec_ent;
+}
+
+void First::Screen(sf::RenderWindow& window,vector<Entity*>& vec_ent)
 { 
     window.setTitle("Oczko - Podaj nazwe graczy");
    
@@ -82,15 +197,17 @@ vector<string> First::Screen(sf::RenderWindow& window)
         cout << "error";
     
 
-    sf::Text txt,txt_entered;
-    txt.setFont(font);
-    txt.setString("Podaj nazwy graczy (max 3) i potwierdz enterem: \n");
+    sf::Text txt("Podaj nazwy graczy (max 3) i potwierdz enterem:",font,24)
+        ,txt_entered,txt2,txt_entered2;
     txt.setStyle(sf::Text::Bold);
     txt.setFillColor(sf::Color::White);
-    txt.setCharacterSize(24);
-    txt_entered = txt;
+    txt_entered = txt2 = txt_entered2 = txt;
+    txt2.setString("Podaj ilosc pieniedzy kazdego z graczy:");
 
-    string imiona;
+    bool state = 0;
+    string imiona="",values="";
+    vector<string> vec_name;
+    vector<int> vec_val;
 
     while (window.isOpen())
     {
@@ -98,21 +215,45 @@ vector<string> First::Screen(sf::RenderWindow& window)
         while (window.pollEvent(ev))
         {
             if (ev.type == sf::Event::Closed)
+            {
                 window.close();
+            }
             if (ev.type == sf::Event::TextEntered)
             {
-                if (ev.text.unicode<128)
+                if (state == 0)
                 {
-                    imiona += (ev.text.unicode);
+                    if (ev.text.unicode == '\b' and !imiona.empty())
+                        imiona.erase(imiona.size() - 1, 1);
+                    else if (ev.text.unicode < 128)
+                        imiona += (ev.text.unicode);
+                }
+                else
+                {
+                    if (ev.text.unicode == '\b' and !values.empty())
+                        values.erase(values.size() - 1, 1);
+                    else if (ev.text.unicode < 128)
+                        values += (ev.text.unicode);
                 }
             }
+         
             if (ev.type == sf::Event::KeyPressed)
             {
                 if (ev.key.code == sf::Keyboard::Enter)
                 {
-                    vector<string> tab_name = vec_names(imiona);
-                    window.setActive(false);//nie dziala
-                    return tab_name;
+                    if (state == 0&& !imiona.empty())                    
+                    {
+                        vec_name = vec_names(imiona);
+                        state = 1;
+                      
+                        //window.setActive(false);//nie dziala
+                    }
+                    
+                    if (state == 1 && !values.empty())
+                    {
+                        vec_val = vec_values(values);
+                        vec_ent = createEntities(vec_name,vec_val);
+                        return;
+                    }
                 }
             }
         }
@@ -121,21 +262,28 @@ vector<string> First::Screen(sf::RenderWindow& window)
         txt_entered.setString(imiona);
         txt_entered.setPosition(0, 25);
 
+        txt2.setPosition(0, 50);
+
+        txt_entered2.setString(values);
+        txt_entered2.setPosition(0, 75);
+
         window.clear();
         window.draw(txt);
         window.draw(txt_entered);
+        if (state == 1)
+        {
+            window.draw(txt2);
+            window.draw(txt_entered2);
+        }
         window.display();
     }
 }
 
-
-
-vector<string> Second::Screen(sf::RenderWindow& window)
+//zamienic z entity
+void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 {
-    vector<string> x;
-    x.clear();
+    
     window.setTitle("Oczko - Daj Pieniadze");
-
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         cout << "error";
@@ -206,18 +354,18 @@ vector<string> Second::Screen(sf::RenderWindow& window)
         window.draw(dealer);
         window.display();
     }
-
-
-    return x;
 }
 
 
 int main()
 {
     sf::RenderWindow display(sf::VideoMode(800, 600), "", sf::Style::Close | sf::Style::Titlebar);
-    Windows* window;/*= new First;
+    vector<Entity*> entities;
+    Windows* window= new First;
+    window->Screen(display, entities);
+   /* window = new Second;
     window->Screen(display);
-    delete window;*/
-    window = new Second;
-    window->Screen(display);
+    Entity* ent=new Player("arek",25);*/
+ 
+
 }
