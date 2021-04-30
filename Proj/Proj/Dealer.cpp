@@ -16,3 +16,9 @@ int Dealer::get_money()
 {
     return this->income;
 }
+
+bool Dealer::set_money(int value)
+{
+	this->income = value;
+	return true;
+}

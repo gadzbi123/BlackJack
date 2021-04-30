@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <set>
+#include <vector>
 #include <SFML\Graphics.hpp>
 
 using namespace std;
@@ -17,4 +17,8 @@ public:
     //virtual bool set_money(int) = 0;
     string get_name() { return this->name; }
     virtual int get_money() = 0;
+    virtual bool set_money(int) = 0;
+    virtual void set_bet(int) = 0;
+
+
 };

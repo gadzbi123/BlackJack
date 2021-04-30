@@ -15,3 +15,8 @@ int Player::get_money()
 {
 	return this->money;
 }
+
+void Player::set_bet(int v)
+{
+	this->bet = v;
+}

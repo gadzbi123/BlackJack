@@ -100,23 +100,30 @@ class Windows{
     virtual void Screen2() = 0;
 public:
     Windows() {};
-    virtual void Screen(sf::RenderWindow&, vector<Entity*>&)=0;
+    virtual void Screen(sf::RenderWindow&, vector<Entity*>&, vector<sf::Text>& vec_txt)=0;
 };
 
 class First :public Windows{
 public:
-    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)override;
     virtual void Screen2() {};
+    //vector<Entity*> createEntities(vector<string> names, vector<int>values);
+
 
 private:
     vector<int> vec_values(const string&);
     vector<string> vec_names(const string& names);
-    vector<Entity*> createEntities(vector<string> names, vector<int>values);
 };
 
 class Second:public Windows {
-    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent) override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt) override;
     virtual void Screen2() {};
+};
+
+class Third : public Windows {
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt) override;
+    virtual void Screen2() {};
+
 };
 
 vector<string> First::vec_names(const string& names)
@@ -137,6 +144,10 @@ vector<string> First::vec_names(const string& names)
                 word = word + x;
         }
     }
+
+    if (vector_names.size() < 3)
+        vector_names.push_back(word);
+    
     return vector_names;
 }
 
@@ -158,17 +169,20 @@ vector<int> First::vec_values(const string& values)
                 word = word + x;
         }
     }
+
+    if (vector_values.size() < 3)
+        vector_values.push_back(stoi(word));
+
     return vector_values;
 }
 
-vector<Entity*> First::createEntities(vector<string> names, vector<int>values)
+vector<Entity*> createEntities(vector<string> names, vector<int>values)
 {
     int number_entities = names.size() + 1;
     vector<Entity*> vec_ent;
 
-    if (names.size() > values.size())//if not enough values then push 0 as value.
+    while(names.size() != values.size())//if not enough values then push 0 as value.
     {
-        values.push_back(0);
         values.push_back(0);
     }
 
@@ -188,21 +202,31 @@ vector<Entity*> First::createEntities(vector<string> names, vector<int>values)
     return vec_ent;
 }
 
-void First::Screen(sf::RenderWindow& window,vector<Entity*>& vec_ent)
+void First::Screen(sf::RenderWindow& window,vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)
 { 
-    window.setTitle("Oczko - Podaj nazwe graczy");
+    window.setTitle("BlackJack - List players");
    
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         cout << "error";
     
 
-    sf::Text txt("Podaj nazwy graczy (max 3) i potwierdz enterem:",font,24)
-        ,txt_entered,txt2,txt_entered2;
+    sf::Text txt("List the names of the players (max 3) and confirm with enter:", font, 24); // 0- list the, 1- set a total, 2-names,3-values
+        
     txt.setStyle(sf::Text::Bold);
     txt.setFillColor(sf::Color::White);
-    txt_entered = txt2 = txt_entered2 = txt;
-    txt2.setString("Podaj ilosc pieniedzy kazdego z graczy:");
+    vec_txt.push_back(txt);
+
+    txt.setString("Set a total money for every player:");
+    txt.setPosition(0, 50);
+    vec_txt.push_back(txt);
+
+    txt.setString("");
+    txt.setPosition(0, 25);
+    vec_txt.push_back(txt);
+
+    txt.setPosition(0, 75);
+    vec_txt.push_back(txt);
 
     bool state = 0;
     string imiona="",values="";
@@ -252,6 +276,7 @@ void First::Screen(sf::RenderWindow& window,vector<Entity*>& vec_ent)
                     {
                         vec_val = vec_values(values);
                         vec_ent = createEntities(vec_name,vec_val);
+                        cout << vec_name.size() << " " << vec_val.size();
                         return;
                     }
                 }
@@ -259,58 +284,66 @@ void First::Screen(sf::RenderWindow& window,vector<Entity*>& vec_ent)
         }
 
         
-        txt_entered.setString(imiona);
-        txt_entered.setPosition(0, 25);
-
-        txt2.setPosition(0, 50);
-
-        txt_entered2.setString(values);
-        txt_entered2.setPosition(0, 75);
-
+        vec_txt[2].setString(imiona);
+        vec_txt[3].setString(values);
+       
         window.clear();
-        window.draw(txt);
-        window.draw(txt_entered);
+        window.draw(vec_txt[0]);
+        window.draw(vec_txt[2]);
+
         if (state == 1)
         {
-            window.draw(txt2);
-            window.draw(txt_entered2);
+            window.draw(vec_txt[1]);
+            window.draw(vec_txt[3]);
+
         }
         window.display();
     }
 }
 
 //zamienic z entity
-void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
-{
-    
-    window.setTitle("Oczko - Daj Pieniadze");
+void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent,vector<sf::Text>& vec_txt)
+{    
+    window.setTitle("BlackJack - Make a bet");
+  
+    vec_txt.clear();
+    //vector<sf::Text> vec_txt; //0 - info, 1 - dealer, 2/4/6 -> name, 3/5/7 -> money
+
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         cout << "error";
 
-    string playerName = "edek";
-    
-    sf::Text name(playerName, font, 24),dealer("Dealer",font,24);
-    name.setPosition(50, 565);
+    sf::Text InfoText("Use scroll to set a bet\npress enter to confirm", font, 24);
+    InfoText.setOrigin(121, 25);
+    InfoText.setPosition(400, 270);
+    vec_txt.push_back(InfoText);
+
+    sf::Text dealer("Dealer", font, 24);
     dealer.setOrigin(36.0f, 9.0f);
-    dealer.setPosition(400,10);
+    dealer.setPosition(400, 10);
+    vec_txt.push_back(dealer);
 
-    sf::Vector2f card_size(60.0f, 90.0f);
-    sf::RectangleShape card(card_size);
-    vector<sf::RectangleShape> cards;
+    sf::Text nameText;
+    sf::Text moneyText;
 
-    for(int j=0;j<4;j++)
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < vec_ent.size() - 1; i++)
     {
-        cards.push_back(card);
-        cards[i+j*3].setFillColor(sf::Color::Red);
-        cards[i+j*3].setPosition(10+i*70, 475-j*100);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
+        nameText.setString(vec_ent[i + 1]->get_name());
+        nameText.setFont(font);
+        nameText.setCharacterSize(24);
+        nameText.setPosition(50 + i * 265, 565);
+        vec_txt.push_back(nameText);
+
+        moneyText.setString("5$");
+        moneyText.setFont(font);
+        moneyText.setCharacterSize(24);
+        moneyText.setPosition(150 + i * 265, 565);
+        vec_txt.push_back(moneyText);
     }
-
     int money = 5;
-    sf::Text moneyText(to_string(money) + "$", font, 24);
-    moneyText.setPosition(150, 565);
+    int currentPlayer = 0;
 
+   
     while (window.isOpen())
     {
         sf::Event ev;
@@ -322,6 +355,20 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
             {
                 if (ev.key.code == sf::Keyboard::Enter)
                 {
+                    //todo
+                    if (currentPlayer < vec_ent.size() - 1)
+                    {
+                        vec_ent[currentPlayer + 1]->set_bet(money);
+                        money = 5;
+                        currentPlayer++;
+                    }
+                    else
+                    {
+                        //rozdaj karty
+                        return;
+
+                    }
+                        
 
                 }
             }
@@ -330,30 +377,43 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 if (ev.mouseWheelScroll.delta == 1)//UP
                 {                 
                     money++;
-                    cout << "Money: " << money << endl;
-                    moneyText.setString(to_string(money) + "$");
+                    vec_txt[currentPlayer*2+3].setString(to_string(money) + "$");
                 
                 }
                 if (ev.mouseWheelScroll.delta == -1 and money > 0)//DOWN
                 {
-                   
                     money--;
-                    cout << "Money: " << money << endl;
-                    moneyText.setString(to_string(money)+"$");
+                    vec_txt[currentPlayer*2+3].setString(to_string(money)+"$");
                 }
             }
         }
 
-
-
         window.clear(sf::Color(0, 100, 50, 250));
-        window.draw(name);
-        for(int i=0;i<11;i++)
-            window.draw(cards[i]);
-        window.draw(moneyText);
-        window.draw(dealer);
+
+        for (int i = 0; i < vec_txt.size(); i++)
+        {
+            window.draw(vec_txt[i]);
+        }
         window.display();
     }
+}
+
+void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)
+{
+    sf::Vector2f card_size(60.0f, 90.0f);
+    sf::RectangleShape card(card_size);
+    vector<sf::RectangleShape> cards;
+
+    for (int j = 0; j < 4; j++)
+        for (int i = 0; i < 3; i++)
+        {
+            cards.push_back(card);
+            cards[i + j * 3].setFillColor(sf::Color::Red);
+            cards[i + j * 3].setPosition(10 + i * 70, 475 - j * 100);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
+        }
+
+    for (int i = 0; i < 11; i++)
+        window.draw(cards[i]);
 }
 
 
@@ -361,11 +421,19 @@ int main()
 {
     sf::RenderWindow display(sf::VideoMode(800, 600), "", sf::Style::Close | sf::Style::Titlebar);
     vector<Entity*> entities;
-    Windows* window= new First;
-    window->Screen(display, entities);
-   /* window = new Second;
-    window->Screen(display);
-    Entity* ent=new Player("arek",25);*/
- 
+    vector<sf::Text> texts;
+
+    vector<int> v;
+    vector<string> n;
+    for(int i = 1 ; i < 4; i++)
+        n.push_back("name+"+to_string(i));
+    for (int i = 1; i < 4; i++)
+        v.push_back(10*i);
+    entities = createEntities(n, v);
+
+    Windows* window;/*= new First;
+    window->Screen(display, entities,texts);*/
+    window = new Second;
+    window->Screen(display,entities,texts);
 
 }

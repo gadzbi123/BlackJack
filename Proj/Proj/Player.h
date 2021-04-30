@@ -12,6 +12,7 @@ public:
     Player(string name,int _money) : Entity(name), money(_money) { bet = 0; }
     bool set_money(int);
     int get_money();
+    void set_bet(int);
 };
 
 
