@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <random>
+#include <memory>
 #include <SFML\Graphics.hpp>
 
 using namespace std;
@@ -14,7 +17,6 @@ protected:
 public:
     Entity() {};
     Entity(string _name) :name(_name) {}
-    //virtual bool set_money(int) = 0;
     string get_name() { return this->name; }
     virtual int get_money() = 0;
     virtual bool set_money(int) = 0;
