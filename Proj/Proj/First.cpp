@@ -75,18 +75,21 @@ vector<Entity*> createEntities(vector<string> names, vector<int>values)
     return vec_ent;
 }
 
-void First::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)
+void First::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 {
     window.setTitle("BlackJack - List players");
+
+    vector<sf::Text> vec_txt;
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         cout << "error";
 
 
-    sf::Text txt("List the names of the players (max 3) and confirm with enter:", font, 24); // 0- list the, 1- set a total, 2-names,3-values
+    sf::Text txt("", font, 24); // 0- list the, 1- set a total, 2-names,3-values
+    
 
-    txt.setStyle(sf::Text::Bold);
+    txt.setString("List the names of the players (max 3) and confirm with enter:");
     txt.setFillColor(sf::Color::White);
     vec_txt.push_back(txt);
 

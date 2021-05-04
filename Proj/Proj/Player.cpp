@@ -20,3 +20,8 @@ void Player::set_bet(int v)
 {
 	this->bet = v;
 }
+
+int Player::get_bet()
+{
+	return this->bet;
+}

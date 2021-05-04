@@ -13,6 +13,7 @@ public:
     bool set_money(int);
     int get_money();
     void set_bet(int);
+    int get_bet();
 };
 
 

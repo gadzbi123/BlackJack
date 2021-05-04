@@ -85,63 +85,73 @@ vector<string> vec_name_cards()
 
 class Card {
 
-    sf::RectangleShape Shape;
+    
     sf::Texture Texture;
+    sf::Vector2u TextureSize;
     string Name;
 public:
+    sf::RectangleShape Shape;
     Card(): Name("")
     {
-        sf::Vector2f x(60.0f, 90.0f);
+        sf::Vector2f x(43.0f, 65.0f);
         Shape.setSize(x);
+
+        Texture.loadFromFile("texture/karty.png");
+        this->Shape.setTexture(&Texture);
+
+        TextureSize = Texture.getSize();
+        TextureSize.x /= 13;
+        TextureSize.y /= 4;
+
     }
-    Card(string name) : Name(name)
-    {
-        sf::Vector2f x(60.0f, 90.0f);
-        Shape.setSize(x);
-        //this->setTextureRect
-    }
+    
     string get_name() { return this->Name; }
     bool is_card();
     void random();
-    sf::RectangleShape get_Rec();
+    sf::RectangleShape get_Shape();
    
 };
 
 void Card::random()
 {
     string _name="";
-    int x;
+    int x,y;
 
     std::default_random_engine los;
     los.seed(std::chrono::system_clock::now().time_since_epoch().count());
-    std::uniform_int_distribution<int> distr(1,13),distr2(0,3);
+    std::uniform_int_distribution<int> distr(0,12),distr2(0,3);
 
     x = distr(los);
-    if (x == 1)
-        _name += "A";
-    if (x > 1 && x < 11)
-        _name += to_string(x);
-    if (x == 11)
+    if (x < 9)
+        _name += to_string(x+2);
+    if (x == 9)
         _name += "J";
-    if (x == 12)
+    if (x == 10)
         _name += "Q";
-    if (x == 13)
+    if (x == 11)
         _name += "K";
+    if (x == 12)
+        _name += "A";
 
-    x = distr2(los);
-    if (x == 0)
-        _name += "h";
-    if (x == 1)
+   
+
+
+    y = distr2(los);
+    if (y == 0)
         _name += "s";
-    if (x == 2)
-        _name += "c";
-    if (x == 3)
+    if (y == 1)
         _name += "d";
+    if (y == 2)
+        _name += "c";
+    if (y == 3)
+        _name += "h";
 
+    Shape.setTextureRect(sf::IntRect(TextureSize.x * x, TextureSize.y * y, TextureSize.x, TextureSize.y));
+    cout << _name;
     this->Name = _name;
 }
 
-sf::RectangleShape Card::get_Rec()
+sf::RectangleShape Card::get_Shape()
 {
     return this->Shape;
 }
@@ -158,24 +168,65 @@ bool Card::is_card()
 }
 
 class Third : public Windows {
-    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt) override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent) override;
     virtual void Screen2() {};
 
 };
 
-void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)
-{
-    cout << vec_txt.size();
+void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
+{    
+    window.setTitle("BlackJack - Show Cards");
+
+    vector<sf::Text> vec_txt;
+    //vector<sf::Text> vec_txt; //0 - Info, 1 - dealer, 2/4/6 -> name, 3/5/7 -> bet
+
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf"))
+        cout << "error";
+
+    //Info at start
+    sf::Text InfoText("Press B to bet\nPress D to double-down\nPress F to fold\n", font, 24);
+    InfoText.setOrigin(121, 25);
+    InfoText.setPosition(400, 270);
+    vec_txt.push_back(InfoText);
+
+    //Dealer text
+    sf::Text dealer("Dealer", font, 24);
+    dealer.setOrigin(36.0f, 9.0f);
+    dealer.setPosition(400, 10);
+    vec_txt.push_back(dealer);
+
+    sf::Text nameText;
+    sf::Text moneyText;
+
+    for (int i = 0; i < vec_ent.size() - 1; i++)
+    {
+        nameText.setString(vec_ent[i + 1]->get_name());
+        nameText.setFont(font);
+        nameText.setCharacterSize(24);
+        nameText.setPosition(80 + i * 260, 565);
+        vec_txt.push_back(nameText);
+
+        moneyText.setString(to_string(vec_ent[i + 1]->get_bet()) + "$");
+        moneyText.setFont(font);
+        moneyText.setCharacterSize(24);
+        moneyText.setPosition(180 + i * 260, 565);
+        vec_txt.push_back(moneyText);
+    }
     
-    vector<Card> cards; //4 vektory
+    vector<Card> cards; 
     Card card;
     int startPos = 250;
-
+  
+    for (int k = 0; k < vec_ent.size() - 1; k++)
     for (int j = 0; j < 4; j++)
         for (int i = 0; i < 3; i++)
         {
-            card.get_Rec().setFillColor(sf::Color::Red);
-            card.get_Rec().setPosition(10 + i * 70, 475 - j * 100);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
+            if (j == 3 and i == 2)
+                break;
+           // card.Shape.setFillColor(sf::Color::Red);
+            card.random();
+            card.Shape.setPosition(80 + i * 50 + k * 250, 500 - j * 75);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
             cards.push_back(card);
 
         }
@@ -198,12 +249,14 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf
 
 
         window.clear(sf::Color(0, 100, 50, 250));
-
-        for (int i = 0; i < vec_txt.size(); i++)
-            window.draw(vec_txt[i]);
         
+        for (int i = 0; i < vec_txt.size(); i++)
+        {
+            window.draw(vec_txt[i]);
+        }
+
         for(int i=0;i<cards.size();i++)
-            window.draw(cards[i].get_Rec());
+            window.draw(cards[i].get_Shape());
         window.display();
     }
 }
@@ -212,7 +265,6 @@ int main()
 {
     sf::RenderWindow display(sf::VideoMode(800, 600), "", sf::Style::Close | sf::Style::Titlebar);
     vector<Entity*> entities;
-    vector<sf::Text> texts;
 
     vector<int> v;
     vector<string> n;
@@ -220,16 +272,19 @@ int main()
         n.push_back("name+"+to_string(i));
     for (int i = 1; i < 4; i++)
         v.push_back(10*i);
+
     entities = createEntities(n, v);
+    for (int i = 1; i < 4; i++)
+        entities[i]->set_bet(2 + i);
 
     Card card;
     
     Windows* window;/*= new First;
-    window->Screen(display, entities,texts);*/
+    window->Screen(display, entities);
     window = new Second;
-    window->Screen(display,entities,texts);
+    window->Screen(display,entities);*/
     window = new Third;
-    window->Screen(display,entities,texts);
+    window->Screen(display,entities);
 
 }
 

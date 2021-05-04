@@ -4,7 +4,7 @@
 #include "Dealer.h"
 class First :public Windows {
 public:
-    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent, vector<sf::Text>& vec_txt)override;
+    void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)override;
     virtual void Screen2() {};
     //vector<Entity*> createEntities(vector<string> names, vector<int>values);
 
