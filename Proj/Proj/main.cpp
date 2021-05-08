@@ -5,6 +5,8 @@
 #include "First.h"
 #include "Second.h"
 
+vector<string> cards_created;
+
 vector<string> vec_name_cards()
 {
     vector<string> names_of_cards;
@@ -83,6 +85,21 @@ vector<string> vec_name_cards()
     return names_of_cards;
 }
 
+class Calculate
+{
+    vector<int> points;
+public:
+    Calculate(vector<Entity*> vec_ent) 
+    { 
+        for(int i=0;i<vec_ent.size();i++)
+            points.push_back(0);
+    }
+    void add(int ent_number)
+    {
+
+    }
+};
+
 class Card {
 
     
@@ -114,8 +131,9 @@ public:
 
 void Card::random()
 {
+start:  
     string _name="";
-    int x,y;
+    int x, y;
 
     std::default_random_engine los;
     los.seed(std::chrono::system_clock::now().time_since_epoch().count());
@@ -133,9 +151,6 @@ void Card::random()
     if (x == 12)
         _name += "A";
 
-   
-
-
     y = distr2(los);
     if (y == 0)
         _name += "s";
@@ -146,8 +161,15 @@ void Card::random()
     if (y == 3)
         _name += "h";
 
+    for (int i = 0; i < cards_created.size(); i++)
+        if (cards_created[i] == _name)
+            goto start;
+
+    cards_created.push_back(_name);
     Shape.setTextureRect(sf::IntRect(TextureSize.x * x, TextureSize.y * y, TextureSize.x, TextureSize.y));
+
     cout << _name;
+
     this->Name = _name;
 }
 
@@ -173,21 +195,40 @@ class Third : public Windows {
 
 };
 
+int calculate_card(string x)
+{
+    int value = 0;
+
+    if (x[0] > '2' and x[0] < '9')
+        value = x[0]-48;
+    if (x[0] == '1')
+        value = 10;
+    if (x[0] == 'J')
+        value = 10;
+    if (x[0] == 'Q')
+        value = 10;
+    if (x[0] == 'K')
+        value = 10;
+    if (x[0] == 'A')
+        value = 11;
+
+    return value;
+}
+
 void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 {    
     window.setTitle("BlackJack - Show Cards");
 
-    vector<sf::Text> vec_txt;
-    //vector<sf::Text> vec_txt; //0 - Info, 1 - dealer, 2/4/6 -> name, 3/5/7 -> bet
+    vector<sf::Text> vec_txt; //0 - Info, 1 - dealer, 2/4/6 -> name, 3/5/7 -> bet
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
         cout << "error";
 
     //Info at start
-    sf::Text InfoText("Press B to bet\nPress D to double-down\nPress F to fold\n", font, 24);
+    sf::Text InfoText("Press H to hit\nPress D to double-down\nPress S to stand\n", font, 24);
     InfoText.setOrigin(121, 25);
-    InfoText.setPosition(400, 270);
+    InfoText.setPosition(400, 200);
     vec_txt.push_back(InfoText);
 
     //Dealer text
@@ -216,20 +257,23 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
     
     vector<Card> cards; 
     Card card;
-    int startPos = 250;
+    //Calculate calc(vec_ent);
   
     for (int k = 0; k < vec_ent.size() - 1; k++)
-    for (int j = 0; j < 4; j++)
-        for (int i = 0; i < 3; i++)
-        {
-            if (j == 3 and i == 2)
-                break;
-           // card.Shape.setFillColor(sf::Color::Red);
-            card.random();
-            card.Shape.setPosition(80 + i * 50 + k * 250, 500 - j * 75);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
-            cards.push_back(card);
+        for (int j = 0; j < 4; j++)
+            for (int i = 0; i < 3; i++)
+            {
+                if (j == 3 and i == 2)
+                    break;
+     
+                card.random();
+                card.Shape.setPosition(80 + i * 50 + k * 250, 500 - j * 75);//x + 3 karty oddalone od sb o 70, y - 4 karty oddalone od sb o 100 
+                cards.push_back(card);
 
-        }
+            }
+
+    int current_player = 1;
+    int current_points = 0;
 
     while (window.isOpen())
     {
@@ -244,6 +288,30 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 {
                     return;
                 }
+
+                if (ev.key.code == sf::Keyboard::H)
+                {
+                    if(current_player < 4)
+                        vec_ent[current_player]->increm_cards_shown();
+          
+                }
+
+                if (ev.key.code == sf::Keyboard::D)
+                {
+                    if (current_player < 4) 
+                    {
+                        vec_ent[current_player]->increm_cards_shown();
+                        vec_ent[current_player]->set_bet(2 * vec_ent[current_player]->get_bet());
+                        vec_txt[1 + 2 * current_player].setString(to_string(vec_ent[current_player]->get_bet())+"$");
+                        current_player++;
+                    }
+                }
+
+                if (ev.key.code == sf::Keyboard::S)
+                {
+                    current_player++;
+                }
+
             }
         }
 
@@ -251,12 +319,25 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
         window.clear(sf::Color(0, 100, 50, 250));
         
         for (int i = 0; i < vec_txt.size(); i++)
-        {
             window.draw(vec_txt[i]);
-        }
+        
 
-        for(int i=0;i<cards.size();i++)
-            window.draw(cards[i].get_Shape());
+        //Start cards
+        for(int j=0;j<vec_ent.size()-1;j++)
+            for (int i = 0; i < 2; i++)
+            {
+                window.draw(cards[i + j * 11].get_Shape());
+                if (current_player == j + 1)
+                    current_points=+calculate_card(cards[i + j * 11].get_name());/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            }
+        //Additional cards
+        for(int j=1;j<vec_ent.size();j++)
+            for (int i = 2; i < vec_ent[j]->get_cards_shown(); i++)
+            {
+                window.draw(cards[i + (j - 1) * 11].get_Shape());
+                cards[i + (j - 1) * 11].get_name();
+            }
+
         window.display();
     }
 }
@@ -274,6 +355,7 @@ int main()
         v.push_back(10*i);
 
     entities = createEntities(n, v);
+
     for (int i = 1; i < 4; i++)
         entities[i]->set_bet(2 + i);
 
@@ -288,4 +370,4 @@ int main()
 
 }
 
-//ZAMIENIC TEXT NA SHARED POINTER bo nie przekazuje wektora do nastepnej funkcji
+//gdy ustawiam bet to zmniejszac money
