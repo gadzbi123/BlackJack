@@ -231,8 +231,12 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 {
                     if (currentPlayer < vec_ent.size() - 1)
                     {
-                        //czy wystarczy pieniedzy
+                        //czy wystarczy pieniedzy dziala?
+                        if (bet > vec_ent[currentPlayer + 1]->get_money());
+                            break;
                         vec_ent[currentPlayer + 1]->set_bet(bet);
+                        int cash = vec_ent[currentPlayer + 1]->get_money();
+                        vec_ent[currentPlayer + 1]->set_money(cash-bet);
                         bet = 5;
                         currentPlayer++;
                     }
