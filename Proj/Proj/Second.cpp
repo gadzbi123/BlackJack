@@ -214,7 +214,7 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
     }
 
     int bet = 5;
-    int currentPlayer = 0;
+    int currentPlayer = 1;
     bool money_income_show = 0;
     bool history_show = 0;
 
@@ -229,14 +229,14 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
             {
                 if (ev.key.code == sf::Keyboard::Enter)
                 {
-                    if (currentPlayer < vec_ent.size() - 1)
+                    if (currentPlayer < vec_ent.size())
                     {
                         //czy wystarczy pieniedzy dziala?
-                        if (bet > vec_ent[currentPlayer + 1]->get_money());
+                        if (bet > vec_ent[currentPlayer]->get_money());
                             break;
-                        vec_ent[currentPlayer + 1]->set_bet(bet);
-                        int cash = vec_ent[currentPlayer + 1]->get_money();
-                        vec_ent[currentPlayer + 1]->set_money(cash-bet);
+                        vec_ent[currentPlayer]->set_bet(bet);
+                        int cash = vec_ent[currentPlayer]->get_money();
+                        vec_ent[currentPlayer]->set_money(cash-bet);
                         bet = 5;
                         currentPlayer++;
                     }
@@ -271,13 +271,13 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 if (ev.mouseWheelScroll.delta == 1)//UP
                 {
                     bet++;
-                    vec_txt[currentPlayer * 2 + 5].setString(to_string(bet) + "$");
+                    vec_txt[currentPlayer * 2 + 3].setString(to_string(bet) + "$");
 
                 }
                 if (ev.mouseWheelScroll.delta == -1 and bet > 0)//DOWN
                 {
                     bet--;
-                    vec_txt[currentPlayer * 2 + 5].setString(to_string(bet) + "$");
+                    vec_txt[currentPlayer * 2 + 3].setString(to_string(bet) + "$");
                 }
             }
         }

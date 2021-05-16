@@ -5,7 +5,7 @@
 class First :public Windows {
 public:
     void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)override;
-    virtual void Screen2() {};
+
     //vector<Entity*> createEntities(vector<string> names, vector<int>values);
 
 

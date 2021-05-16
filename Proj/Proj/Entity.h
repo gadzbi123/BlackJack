@@ -5,7 +5,7 @@
 #include <chrono>
 #include <random>
 #include <memory>
-#include <Windows.h>
+
 #include <SFML\Graphics.hpp>
 
 using namespace std;
