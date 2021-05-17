@@ -149,21 +149,25 @@
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="First.cpp" />
+    <ClCompile Include="History.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Second.cpp" />
     <ClCompile Include="Third.cpp" />
     <ClCompile Include="Windows.cpp" />
+    <ClCompile Include="Zero.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="First.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Second.h" />
     <ClInclude Include="Third.h" />
     <ClInclude Include="Windows.h" />
+    <ClInclude Include="Zero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

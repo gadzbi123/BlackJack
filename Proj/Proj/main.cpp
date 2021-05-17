@@ -2,31 +2,29 @@
 #include "Player.h"
 #include "Dealer.h"
 #include "Windows.h"
+#include "Zero.h"
 #include "First.h"
 #include "Second.h"
 #include "Third.h"
 
-class Calculate
+void save_to_file(vector<Entity*> vec_ent)
 {
-    vector<int> points;
-public:
-    Calculate(vector<Entity*> vec_ent) 
-    { 
-        for(int i=0;i<vec_ent.size();i++)
-            points.push_back(0);
-    }
-    void add(int ent_number)
+    ofstream plik("Salda.txt", ios_base::out);
+    if (plik)
     {
+        for(int i=1;i<vec_ent.size();i++)
+            plik << vec_ent[i]->get_name() << '\n'<<vec_ent[i]->get_money()<<endl;
 
     }
-};
+    plik.close();
+}
 
 int main()
 {
     sf::RenderWindow display(sf::VideoMode(800, 600), "", sf::Style::Close | sf::Style::Titlebar);
     vector<Entity*> entities;
 
-    vector<int> v;
+   /* vector<int> v;
     vector<string> n;
     for(int i = 1 ; i < 4; i++)
         n.push_back("name+"+to_string(i));
@@ -36,15 +34,25 @@ int main()
     entities = createEntities(n, v);
 
     for (int i = 1; i < 4; i++)
-        entities[i]->set_bet(2 + i);
+        entities[i]->set_bet(2 + i);*/
     
-    Windows* window;/*= new First;
-    window->Screen(display, entities);
-    window = new Second;
-    window->Screen(display,entities);*/
-    window = new Third;
+    Windows* window = new Zero;
     window->Screen(display,entities);
 
+    if (entities.empty())
+    {
+        window = new First;
+        window->Screen(display, entities);
+    }
+    
+    while (display.isOpen())
+    {
+        window = new Second;
+        window->Screen(display, entities);
+        if (display.isOpen())
+        {
+            window = new Third;
+            window->Screen(display, entities);
+        }
+    }
 }
-
-//gdy ustawiam bet to zmniejszac money

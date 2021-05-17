@@ -2,6 +2,7 @@
 #include "Windows.h"
 #include "Player.h"
 #include "Dealer.h"
+
 class First :public Windows {
 public:
     void Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)override;
@@ -14,5 +15,4 @@ private:
     vector<string> vec_names(const string& names);
 };
 
-vector<Entity*> createEntities(vector<string> names, vector<int>values);
 

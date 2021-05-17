@@ -1,14 +1,12 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <vector>
 #include <chrono>
 #include <random>
 #include <memory>
+#include <fstream>
 
 #include <SFML\Graphics.hpp>
+#include "History.h"
 
-using namespace std;
 
 class Entity
 {
@@ -16,6 +14,9 @@ protected:
     string name;
     int points;
     int cards_shown;
+public:
+    History history;
+
 public:
     Entity(): points(0),cards_shown(2) {};
     Entity(string _name) :name(_name),points(0),cards_shown(2) {}
