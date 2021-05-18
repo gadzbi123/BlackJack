@@ -57,6 +57,19 @@ void Second::createVec_txt(const vector<Entity*>& vec_ent, vector<sf::Text>& vec
     }
 }
 
+string str_money_income(const vector<Entity*>& vec_ent)
+{
+    string str_money_income = "Income/Money:\n";
+    for (int i = 0; i < vec_ent.size(); i++)
+    {
+        str_money_income += vec_ent[i]->get_name();
+        str_money_income += ": ";
+        str_money_income += to_string(vec_ent[i]->get_money());
+        str_money_income += " $\n";
+    }
+    return str_money_income;
+}
+
 void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 {
     window.setTitle("BlackJack - Make a bet");
@@ -80,16 +93,8 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
     dealer.setPosition(400, 10);
     vec_txt.push_back(dealer);
 
-    //Money or income text
-    string str_money_income = "Income/Money:\n";
-    for (int i = 0; i < vec_ent.size(); i++)
-    {
-        str_money_income += vec_ent[i]->get_name();
-        str_money_income += " - ";
-        str_money_income += to_string(vec_ent[i]->get_money());
-        str_money_income += " $\n";
-    }
-    sf::Text Money_Income(str_money_income, font, 16);
+    //Money or income text   
+    sf::Text Money_Income(str_money_income(vec_ent), font, 16);
     Money_Income.setPosition(680, 0);
     vec_txt.push_back(Money_Income);
 
@@ -144,9 +149,9 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 {
                     if (currentPlayer < vec_ent.size())
                     {
-
                         if (bet > vec_ent[currentPlayer]->get_money())
                             break;
+
                         vec_ent[currentPlayer]->set_bet(bet);
                         int cash = vec_ent[currentPlayer]->get_money();
                         vec_ent[currentPlayer]->set_money(cash - bet);
@@ -204,12 +209,13 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
         {
             if (i == 2 && money_income_show == 1) //show money
             {
+                vec_txt[2].setString(str_money_income(vec_ent));
                 window.draw(vec_txt[2]);
                 i++;
             }
 
-            if (i == 2 && money_income_show == 0)//dont show money
-                i++;
+            if (i == 2 && money_income_show == 0) i++;//dont show money
+                
 
             if (i == 3 && history_show == 1) //show history
             {
@@ -217,8 +223,8 @@ void Second::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 i++;
             }
 
-            if (i == 3 && history_show == 0) //dont show history
-                i++;
+            if (i == 3 && history_show == 0) i++; //dont show history
+                
 
             window.draw(vec_txt[i]);
         }

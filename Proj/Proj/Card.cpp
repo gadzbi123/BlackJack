@@ -124,8 +124,7 @@ start:
     TextureSize.y /= 4;
     Shape.setTextureRect(sf::IntRect(TextureSize.x * x, TextureSize.y * y, TextureSize.x, TextureSize.y));
 
-    cout << _name;
-
+    //cout << _name;
     this->Name = _name;
 }
 
@@ -178,8 +177,7 @@ void Card::random(string s)
         TextureSize.y /= 1;
         Shape.setTextureRect(sf::IntRect(TextureSize.x * y % 2, TextureSize.y * 0, TextureSize.x, TextureSize.y));
 
-        cout << _name;
-
+        //cout << _name;
         this->Name = _name;
     }
 }

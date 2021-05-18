@@ -46,6 +46,70 @@ int Third::hit_or_stand(int casey)
 
 }
 
+void Third::save_to_file(vector<Entity*>& vec_ent)
+{
+    ofstream plik("Salda.txt", ios_base::out);
+    if (plik)
+    {
+        for (int i = 1; i < vec_ent.size(); i++)
+            plik << vec_ent[i]->get_name() << '\n' << vec_ent[i]->get_money() << endl;
+
+    }
+    plik.close();
+}
+
+void Third::hitButton(vector<Entity*>& vec_ent,int current_player,vector<Card>& cards)
+{
+    int current_points = 0;
+
+    if (current_player < vec_ent.size())
+    {
+        vec_ent[current_player]->increm_cards_shown();
+        int shown = vec_ent[current_player]->get_cards_shown();
+        current_points = calculate_card(cards[(shown - 1) + (current_player) * 11].get_name());
+
+        if (current_points == 11 and vec_ent[current_player]->get_points() > 10)
+            current_points = 1;
+
+        vec_ent[current_player]->add_points(current_points);
+        cout << current_player << " " << vec_ent[current_player]->get_points() << endl;
+    }
+}
+
+void Third::doubledownButton(int& current_player, vector<Entity*>& vec_ent)
+{
+    vec_ent[current_player]->increm_cards_shown();
+    current_player++;
+    if (vec_ent[current_player]->get_money() < 2 * vec_ent[current_player]->get_bet())
+    {
+        vec_ent[current_player]->set_bet(vec_ent[current_player]->get_money());
+        vec_ent[current_player]->set_money(0);
+    }
+    else
+    {
+        vec_ent[current_player]->set_money(vec_ent[current_player]->get_money() - vec_ent[current_player]->get_bet());
+        vec_ent[current_player]->set_bet(2 * vec_ent[current_player]->get_bet());
+    }
+}
+
+void Third::calculate_start_cards(vector<Entity*>& vec_ent,vector<Card> cards)
+{
+    int current_points = 0;
+
+    for (int j = 0; j < vec_ent.size(); j++)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            int card_value = calculate_card(cards[i + j * 11].get_name());
+            if (card_value == 11 and current_points > 10)
+                card_value = 1;
+            current_points += card_value;
+        }
+        vec_ent[j]->add_points(current_points);
+        current_points = 0;
+    }
+}
+
 void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 {
     window.setTitle("BlackJack - Show Cards");
@@ -99,11 +163,6 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
     //Create cards visual for dealer
     for (int i = 0; i < 11; i++)
     {
-       /* if (i == 1) {
-            cardTurned.random("Turned");
-            cards.push_back(card);
-        }
-        else*/
         card.random();
         card.Shape.setPosition(130 + i * 50, 50);
         cards.push_back(card);
@@ -122,24 +181,16 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 cards.push_back(card);
 
             }
+    
+    //Covered cards from dealer
+    cardTurned.random("Turned");
+    cardTurned.Shape.setPosition(180, 50);
+    cards.push_back(cardTurned);
 
     int current_player = 1;
-    int current_points = 0;
     int reset = 0;
 
-    //Calculate start cards for players and dealer
-    for (int j = 0; j < vec_ent.size(); j++)
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            int card_value = calculate_card(cards[i + j * 11].get_name());
-            if (card_value == 11 and current_points > 10)
-                card_value = 1;
-            current_points += card_value;
-        }
-        vec_ent[j]->add_points(current_points);
-        current_points = 0;
-    }
+    calculate_start_cards(vec_ent, cards);
 
     while (window.isOpen())
     {
@@ -157,42 +208,13 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 }
 
                 if (ev.key.code == sf::Keyboard::H)
-                {
-                    if (current_player < vec_ent.size())
-                    {
-                        vec_ent[current_player]->increm_cards_shown();
-                        int shown = vec_ent[current_player]->get_cards_shown();
-                        current_points = calculate_card(cards[(shown - 1) + (current_player) * 11].get_name());
-
-                        if (current_points == 11 and vec_ent[current_player]->get_points() > 10)
-                            current_points = 1;
-
-                        vec_ent[current_player]->add_points(current_points);
-                        cout << current_player << " " << vec_ent[current_player]->get_points() << endl;
-
-                        current_points = 0;
-
-
-                    }
-                }
-
+                    hitButton(vec_ent, current_player, cards);
+                
                 if (ev.key.code == sf::Keyboard::D)
                 {
                     if (current_player < vec_ent.size())
                     {
-                        vec_ent[current_player]->increm_cards_shown();
-                        current_player++;
-                        if (vec_ent[current_player]->get_money() < 2 * vec_ent[current_player]->get_bet())
-                        {
-                            vec_ent[current_player]->set_bet(vec_ent[current_player]->get_money());
-                            vec_ent[current_player]->set_money(0);                            
-                        }
-                        else
-                        {
-                            vec_ent[current_player]->set_money(vec_ent[current_player]->get_money() - vec_ent[current_player]->get_bet());
-                            vec_ent[current_player]->set_bet(2 * vec_ent[current_player]->get_bet());
-                        }
-
+                        doubledownButton(current_player,vec_ent);
                         vec_txt[1 + 2 * current_player].setString(to_string(vec_ent[current_player]->get_bet()) + "$");
                     }
                 }
@@ -203,7 +225,6 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                     {
                         vec_txt[2 * current_player].setStyle(sf::Text::Regular);
                         current_player++;
-
                         if (current_player < vec_ent.size())
                             vec_txt[2 * current_player].setStyle(sf::Text::Underlined);
                         else
@@ -214,12 +235,11 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 //calculate
                 if (current_player < vec_ent.size())
                 {
-                    current_points = vec_ent[current_player]->get_points();
+                    int current_points = vec_ent[current_player]->get_points();
                     if (current_points > 21)
                     {
                         vec_txt[2 * current_player].setFillColor(sf::Color::Red);
                         vec_txt[2 * current_player].setStyle(sf::Text::Regular);
-                        cout << "bust\n";
                         vec_ent[0]->history.add(vec_ent[current_player]->get_name(), -(vec_ent[current_player]->get_bet()));
                         current_player++;
                     }
@@ -228,17 +248,17 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                     {
                         vec_txt[2 * current_player].setFillColor(sf::Color::Yellow);
                         vec_txt[2 * current_player].setStyle(sf::Text::Regular);
-                        cout << "BlackJack\n";
                         vec_ent[0]->history.add(vec_ent[current_player]->get_name(), vec_ent[current_player]->get_bet());
                         current_player++;
                     }
 
-                    if (current_points < 21) {}
-                    else
+                    if (current_points >= 21)
+                    {
                         if (current_player < vec_ent.size())
                             vec_txt[2 * current_player].setStyle(sf::Text::Underlined);
                         else
                             vec_txt[1].setStyle(sf::Text::Underlined);
+                    }
                 }
             }
         }
@@ -264,20 +284,16 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
             if (vec_ent[0]->get_points() > 21)
                 choice = 0;
 
-            if (reset == 0)
-                cout << "choice=" << choice << endl;
-
             //bust
             if (choice == 0 and reset == 0)
             {
                 vec_txt[1].setFillColor(sf::Color::Red);
-
                 cout << "bustDealer" << endl;
                 vec_ent[0]->history.clear();
 
                 for (int i = 1; i < vec_ent.size(); i++)
                 {
-                    vec_txt[2 * i].setFillColor(sf::Color::White);
+                    vec_txt[2 * i].setFillColor(sf::Color::Yellow);
                     int cash = vec_ent[i]->get_money();
                     int bet = vec_ent[i]->get_bet();
                     vec_ent[i]->set_money(cash + 2 * bet);
@@ -299,15 +315,13 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 cout << "hitDealer" << endl;
                 vec_ent[0]->increm_cards_shown();
                 int shown = vec_ent[0]->get_cards_shown();
-                current_points = calculate_card(cards[(shown - 1)].get_name());
+                int current_points = calculate_card(cards[(shown - 1)].get_name());
 
                 if (current_points == 11 and vec_ent[0]->get_points() > 10)
                     current_points = 1;
 
                 vec_ent[0]->add_points(current_points);
                 current_points = 0;
-
-
 
             }
 
@@ -317,9 +331,10 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                 income = 0;
                 for (int i = 1; i < vec_ent.size(); i++)
                 {
-                    cout << "standDealer" << endl;
+                    //cout << "standDealer" << endl;
                     if (vec_ent[0]->get_points() > vec_ent[i]->get_points())
                     {
+                        //cout << "if1\n";
                         temp = vec_ent[0]->get_money();
                         vec_ent[0]->set_money(temp + vec_ent[i]->get_bet());
                         vec_ent[0]->history.add(vec_ent[i]->get_name(), -vec_ent[i]->get_bet());
@@ -328,14 +343,16 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 
                     if (vec_ent[0]->get_points() == vec_ent[i]->get_points())
                     {
+                       //cout << "if2\n";
                         temp = vec_ent[i]->get_money();
                         vec_ent[i]->set_money(temp + vec_ent[i]->get_bet());
                         vec_ent[0]->history.add(vec_ent[i]->get_name(), 0);
 
                     }
 
-                    if (vec_ent[0]->get_points() < vec_ent[i]->get_points() and vec_ent[i]->get_points() < 21)
+                    if ((vec_ent[0]->get_points() < vec_ent[i]->get_points()) and (vec_ent[i]->get_points() <= 21))
                     {
+                        //cout << "if3\n";
                         temp = vec_ent[0]->get_money();
                         vec_ent[0]->set_money(temp - vec_ent[i]->get_bet());
 
@@ -346,15 +363,18 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                         income -= vec_ent[i]->get_bet();
                     }
 
-                    if (vec_ent[0]->get_points() < vec_ent[i]->get_points() and vec_ent[i]->get_points() >= 21)
+                    if (vec_ent[0]->get_points() < vec_ent[i]->get_points() and vec_ent[i]->get_points() > 21)
                     {
+                        //cout << "if4\n";
                         income += vec_ent[i]->get_bet();
+                        vec_ent[0]->set_money(vec_ent[0]->get_money() + vec_ent[i]->get_bet());
                     }
                 }
+
                 if (reset == 0)
                     reset = 1;
-                vec_ent[0]->history.add(vec_ent[0]->get_name(), income);
 
+                vec_ent[0]->history.add(vec_ent[0]->get_name(), income);
             }
 
             //reset
@@ -365,7 +385,7 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
 
                 if (reset == 2)
                 {
-
+                    save_to_file(vec_ent);
                     vec_ent[0]->reset_points_cards();
                     vec_txt[0].setFillColor(sf::Color::White);
                     vec_txt[0].setStyle(sf::Text::Regular);
@@ -387,15 +407,19 @@ void Third::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
         for (int i = 0; i < vec_txt.size(); i++)
             window.draw(vec_txt[i]);
 
-
-        //cards shown for players and dealer
+        //Cards shown for players and dealer
         for (int j = 0; j < vec_ent.size(); j++)
             for (int i = 0; i < vec_ent[j]->get_cards_shown(); i++)
             {
                 window.draw(cards[i + (j) * 11].get_Shape());
             }
 
+        //Covering dealer's card
+        if (current_player < vec_ent.size())
+            window.draw(cards[11*vec_ent.size()].get_Shape());
+
         window.display();
+
         if (current_player == vec_ent.size() and reset == 0)
             sf::sleep(sf::milliseconds(3000));
     }

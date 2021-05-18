@@ -19,6 +19,8 @@ int Dealer::get_money()
 
 bool Dealer::set_money(int value)
 {
-	this->income = value;
+    cout << "DealerSetMoneyCall" << endl;
+
+    this->income = value;
 	return true;
 }

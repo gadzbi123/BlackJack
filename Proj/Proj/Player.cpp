@@ -2,6 +2,7 @@
 
 bool Player::set_money(int value)
 {
+	cout << "PlayerSetMoneyCall" << endl;
 	if (value >= 0)
 	{
 		this->money = value;

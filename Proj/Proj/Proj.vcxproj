@@ -152,6 +152,7 @@
     <ClCompile Include="History.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Presentation.cpp" />
     <ClCompile Include="Second.cpp" />
     <ClCompile Include="Third.cpp" />
     <ClCompile Include="Windows.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="First.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Presentation.h" />
     <ClInclude Include="Second.h" />
     <ClInclude Include="Third.h" />
     <ClInclude Include="Windows.h" />

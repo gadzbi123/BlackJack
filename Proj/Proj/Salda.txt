@@ -1,6 +1,4 @@
-name+1
-10
-name+2
-20
-name+3
-30
+kacper
+110
+ala
+220

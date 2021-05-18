@@ -128,7 +128,6 @@ void First::Screen(sf::RenderWindow& window, vector<Entity*>& vec_ent)
                     {
                         vec_val = vec_values(values);
                         vec_ent = createEntities(vec_name, vec_val);
-                        cout << vec_name.size() << " " << vec_val.size();
                         return;
                     }
                 }
