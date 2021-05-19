@@ -128,9 +128,9 @@ start:
     this->Name = _name;
 }
 
-void Card::random(string s)
+void Card::random(string turned)
 {
-    if (s == "Turned")
+    if (turned == "Turned")
     {        
     start:
         string _name = "";

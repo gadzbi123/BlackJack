@@ -26,7 +26,7 @@ public:
     //creates a random shown card
     void random();
     //creates a random card that is not visible to a player
-    void random(string);
+    void random(string turned);
     sf::RectangleShape get_Shape();
 
 };
