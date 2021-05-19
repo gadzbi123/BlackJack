@@ -7,6 +7,7 @@ public:
     Windows() {};
     virtual void Screen(sf::RenderWindow&, vector<Entity*>&) = 0;
 protected:
+    //creates the entities by names and values given
     vector<Entity*> createEntities(vector<string> names, vector<int>values);
 
 };

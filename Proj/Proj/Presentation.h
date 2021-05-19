@@ -11,5 +11,6 @@
 class Presentation
 {
 public:
+    //Main presentation method
     void main();
 };
