@@ -27,7 +27,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{bb78dbff-8048-44fa-85bc-113a45f361cf}</ProjectGuid>
+    <ProjectGuid>{e62b5398-c6bd-4c30-a997-c3c6b2675473}</ProjectGuid>
     <RootNamespace>JADll</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

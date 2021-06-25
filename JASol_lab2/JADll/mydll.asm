@@ -37,7 +37,7 @@ FindChar_1 PROC
 Check_End: 
     CMP BYTE PTR [ESI], 0FFH	; //ZMIENIONE Z 0FFFFH
     JE Not_Find					; znaleziono znak konca (wartownik) 
-    CMP AL, [ESI]			; porownaj znak z elementem lancucha 'DataString' 
+    CMP AH, [ESI]			; porownaj znak z elementem lancucha 'DataString' 
     JE Got_Equal				; znaleziono znak! 
     ADD ESI, 1					; inkrementuj offset
     JMP Check_End				; petla wyszukiwania 
@@ -62,8 +62,8 @@ FindChar_1 ENDP					; koniec FindChar_1
 ;*	EAX - BOOL TRUE Found, FALSE not found * 
 ;* * 
 ;**************************************************************************** 
-LocalString DB 0C3H,'GIKSZJ', 0FFH ; definicja ciagu znakow 
 FindChar_2 PROC 
+LocalString DB 0C3H,'GIKSZJ', 0FFH ; definicja ciagu znakow 
     MOV ESI, OFFSET LocalString ; zaladuj offset zmiennej 'LocalString' do rej. ESI 
     MOV AH, 'J'					; zaladuj kod litery 'J' do rej. AH 
 Check_End: 
@@ -111,8 +111,7 @@ Not_Find:
     MOV EAX,0					; nie znaleziono znaku 
     RET							; powrot z procedury 
 Done: 
-    MOV EAX,1	                ; znaleziono znak 
-    RET
+    MOV EAX,1					; znaleziono znak 
 FindChar_3 ENDP					; koniec FindChar_3 
 ;**************************************************************************** 
 ;* Procedura FindChar_4 wyszukiwania znaku 'J' w ciagu 'DataString' * 
@@ -131,7 +130,7 @@ FindChar_4 PROC NEAR			; deklaracja procedury FindChar_4
 Check_End: 
     CMP DataString[ESI], 0FFH	; czy koniec lancucha (znak specjalny FF)? 
     JE Not_Find					; znaleziono znak konca (wartownik) 
-    CMP AH, BYTE PTR DataString[ESI] ; porownaj znak z elementem lancucha 'DataString' 
+    CMP AX, WORD PTR DataString[ESI] ; porownaj znak z elementem lancucha 'DataString' 
     JE Got_Equal				; znaleziono znak! 
     ADD SI, 1					; inkrementuj indeks 
     JMP Check_End				; petla wyszukiwania 
@@ -168,11 +167,7 @@ FindChar_5 PROC NEAR
     CMP BYTE PTR [EBX+4], 'J'	; porownaj znak z elementem lancucha 'DataString' 
     JE Got_It					; znaleziono znak 
     CMP BYTE PTR [EBX+5], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It	
-    CMP BYTE PTR [EBX+6], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It	; znaleziono znak 
-    CMP BYTE PTR [EBX+7], 0FFH; porownaj znak z elementem lancucha 'DataString' 
-    JE Not_Find	
+    JE Got_It					; znaleziono znak 
 Not_Find: 
     MOV EAX,0					; zaladuj znak zapytania do DL 
     RET							; powrot z procedury 
@@ -200,7 +195,7 @@ Check_End:
     CMP BYTE PTR [EBX+ESI], 0FFH; czy koniec lancucha (znak specjalny FF)? 
     JE Not_Find					; znaleziono znak konca (wartownik) 
     CMP AH, BYTE PTR [EBX+ESI]	; porownaj znak z elementem lancucha 'String' 
-    JE Got_Equal    			; znaleziono znak! 
+    JE Not_Find					; znaleziono znak! 
     INC ESI						; inkrementuj indeks 
     JMP Check_End				; petla wyszukiwania 
 Got_Equal: 
@@ -214,32 +209,6 @@ Done:
     RET							; powrot z procedury 
 FindChar_6 ENDP					; koniec FindChar_6 
 ;****************************************************************************
-My_proc PROC NEAR 
-    MOV EBX, OFFSET DataString	; zaladuj offset zmiennej 'DataString' do rej. EBX 
-    CMP BYTE PTR [EBX+0], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It					; znaleziono znak 
-    CMP BYTE PTR [EBX+1], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It					; znaleziono znak 
-    CMP BYTE PTR [EBX+2], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It					; znaleziono znak 
-    CMP BYTE PTR [EBX+3], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It					; znaleziono znak 
-    CMP BYTE PTR [EBX+4], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It					; znaleziono znak 
-    CMP BYTE PTR [EBX+5], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It	
-    CMP BYTE PTR [EBX+6], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Got_It	; znaleziono znak 
-    CMP BYTE PTR [EBX+7], 'J'	; porownaj znak z elementem lancucha 'DataString' 
-    JE Not_Find	
-Not_Find: 
-    MOV EAX,0					; zaladuj znak zapytania do DL 
-    RET							; powrot z procedury 
-Got_It: 
-    MOV EAX,1					; wyswietl znak ne ekranie 
-    RET							; powrot z procedury 
-My_proc ENDP					; koniec FindChar_5 
-;****************************************************************************
 ;* Procedura ReadTime_1 pomiaru czasu wykonania procedury FindChar_1 * 
 ;* * 
 ;* do pomiaru wykorzystywany jest licznik taktów zegara procesora * 
@@ -250,32 +219,17 @@ My_proc ENDP					; koniec FindChar_5
 ;**************************************************************************** 
 .586
 ReadTime_1 PROC NEAR
-    ;CPUID						; celowo brak komentarza
+    CPUID						; celowo brak komentarza
 
     RDTSC						; odczyt licznika taktów
     MOV ECX,EAX
 
-    CALL FindChar_6				; wywo³anie badanej funkcji
+    CALL FindChar_1				; wywo³anie badanej funkcji
 
     RDTSC
     SUB EAX,ECX
 
     RET
 ReadTime_1 ENDP 
-;**************************************************************************** 
-ReadTime_3 PROC AppString: DWORD
-    ;CPUID						; celowo brak komentarza
-
-    RDTSC						; odczyt licznika taktów
-    MOV ECX,EAX
-
-    PUSH AppString
-    CALL FindChar_3				; wywo³anie badanej funkcji
-
-    RDTSC
-    SUB EAX,ECX
-
-    RET
-ReadTime_3 ENDP 
 ;**************************************************************************** 
 END DllEntry 

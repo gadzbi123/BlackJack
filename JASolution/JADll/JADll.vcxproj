@@ -104,6 +104,9 @@
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>mydll.def</ModuleDefinitionFile>
     </Link>
+    <MASM>
+      <AssembledCodeListingFile>mydll.lst</AssembledCodeListingFile>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -124,6 +127,11 @@
       <EnableUAC>false</EnableUAC>
       <ModuleDefinitionFile>mydll.def</ModuleDefinitionFile>
     </Link>
+    <MASM>
+      <AssembledCodeListingFile>mydll.lst</AssembledCodeListingFile>
+      <EnableAssemblyGeneratedCodeListing>
+      </EnableAssemblyGeneratedCodeListing>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

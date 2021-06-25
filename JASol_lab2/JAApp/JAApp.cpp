@@ -1,15 +1,6 @@
 #include "pch.h"
-
-#include <windows.h>
-#include <stdio.h>
-extern "C" int _stdcall FindChar_1(void);
-extern "C" int _stdcall FindChar_2(void);
-extern "C" int _stdcall FindChar_3(LPSTR String);
-extern "C" int _stdcall FindChar_4(void);
-extern "C" int _stdcall FindChar_5(void);
-extern "C" int _stdcall FindChar_6(void);
-extern "C" int _stdcall ReadTime_1(void);
-extern "C" int _stdcall ReadTime_3(LPSTR String);
+#include "Resource.h"
+#include "JAApp.h"
 
 int main()
 {
@@ -22,12 +13,6 @@ int main()
 	printf("FindChar_5 %s\n", (FindChar_5() == 1 ? "Found J" : "Not Found J"));
 	printf("FindChar_6 %s\n", (FindChar_6() == 1 ? "Found J" : "Not Found J"));
 
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
-	printf("Czas przetwarzania: %i\n", ReadTime_3(szString));
 	printf("Czas przetwarzania: %i\n", ReadTime_1());
 	printf("Czas przetwarzania: %i\n", ReadTime_1());
 	printf("Czas przetwarzania: %i\n", ReadTime_1());
@@ -35,6 +20,5 @@ int main()
 	printf("Czas przetwarzania: %i\n", ReadTime_1());
 	printf("Czas przetwarzania: %i\n", ReadTime_1());
 
-	//MessageBox(NULL, L"Wyci¹gnij wnioski", L"Lab. 2", MB_OK);
-
+	MessageBox(NULL, L"Wyci¹gnij wnioski", L"Lab. 2", MB_OK);
 }

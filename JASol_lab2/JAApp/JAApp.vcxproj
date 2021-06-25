@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{26D0C75C-48F1-4FE7-9C42-692231F01CA2}</ProjectGuid>
+    <ProjectGuid>{AEA864BD-3482-4261-B82B-BE2CE84D7E03}</ProjectGuid>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>JAApp</RootNamespace>
@@ -82,7 +82,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Users\Admin\source\repos\9fb871fe-gr51-repo\JASolution\Debug\JADll.lib</AdditionalDependencies>
+      <AdditionalDependencies />
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -106,7 +106,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>..\Debug\JADll.lib</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -126,6 +126,7 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JAApp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
