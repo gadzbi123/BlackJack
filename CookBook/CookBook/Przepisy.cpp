@@ -60,8 +60,107 @@ void Przepisy::find_przepis()
 	open_przepis(foodNameVec[choice], _tof);
 }
 
-void Przepisy::open_przepis(string, int _tof)
+void Przepisy::dodaj_przepis()
 {
+	int option, _tof, _tod;
+	while (true) {
+		cout << "Podaj jakiego typu jest twoja potrawa" << endl
+			<< "typy potrawy: " << endl
+			<< "1- wegetarjanskie" << endl
+			<< "2- weganskie" << endl
+			<< "3- miesne" << endl
+			<< "twoj wybor: " << endl;
+
+		if (cin >> option)
+		{
+			if (option > 3 or option < 1)
+				cout << "takiego typu nie ma na liscie" << endl;
+			else
+				break;
+		}
+		else
+		{
+			cout << "Podaj wartosc liczbowa" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+
+	_tof = option;
+
+	while (true) {
+		cout << "Podaj na jaka pore dnia jest posilek" << endl
+			<< "czasy dnia: " << endl
+			<< "1- sniadanie" << endl
+			<< "2- obiad" << endl
+			<< "3- kolacja" << endl
+			<< "twoj wybor: " << endl;
+
+		if (cin >> option)
+		{
+			if (option > 3 or option < 1)
+				cout << "takiego typu nie ma na liscie" << endl;
+			else
+				break;
+		}
+		else
+		{
+			cout << "Podaj wartosc liczbowa" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+
+	_tod = option;
+	insert_przepis_into_file(_tof, _tod);
+}
+
+void Przepisy::open_przepis(string foodName, int _tof)
+{
+	string line;
+	ifstream plik;
+	if (_tof == 0)
+		plik.open("../przepisy/wege.txt");
+	if (_tof == 1)
+		plik.open("../przepisy/wegan.txt");
+	if (_tof == 2)
+		plik.open("../przepisy/miesne.txt");
+
+	if (!plik)
+	{
+		cout << "nie otwarto pliku" << endl;
+		return;
+	}
+	else
+	{
+		while (getline(plik, line, '-'))
+		{
+			getline(plik, line);
+			if (line.find(foodName) != string::npos)
+			{
+				cout << foodName << ":" << endl<<endl;
+				getline(plik, line);
+				line.assign(line, 2, line.size() - 2);
+				cout <<"Sposob przyrzadzenia" <<endl << line<<endl;
+				while (getline(plik, line))
+				{
+					if (line[0] == '%')
+						break;
+					cout << line<<endl;
+				}
+				line.assign(line, 1, line.size() - 1);
+				cout << "Skladniki" << endl<<line<<endl;
+				while (getline(plik, line))
+				{
+					if (line[0] == '+' or line[0] =='-')
+						break;
+					cout << line << endl;
+				}
+				break;
+			}
+		}
+	}
+	plik.close();
 }
 
 void Przepisy::wybierz_przepis(vector<string>foodNameVec, int& choice)
@@ -100,7 +199,7 @@ void Przepisy::wypisz_przepisy(vector<string>foodNameVec,int wege_count,int vega
 
 	if (vegan_count > 0)
 	{
-		cout << "Potrawy Vegan:\n";
+		cout << "Potrawy vegan:\n";
 		for (i = j; i < j + vegan_count; i++)
 			cout << i + 1 << "." << foodNameVec[i] << endl;
 		j = i;
@@ -114,4 +213,55 @@ void Przepisy::wypisz_przepisy(vector<string>foodNameVec,int wege_count,int vega
 		j = i;
 	}
 	cout << endl;
+}
+
+void Przepisy::insert_przepis_into_file(int _tof,int _tod)
+{
+	ifstream plik;
+	FoodType temp(_tod,_tof);
+
+	string line;
+	string tof_str = temp.getTimeOfDayStr();
+
+	if (_tof == 0)
+		plik.open("../przepisy/wege.txt");
+	if (_tof == 1)
+		plik.open("../przepisy/wegan.txt");
+	if (_tof == 2)
+		plik.open("../przepisy/miesne.txt");
+
+	if (!plik)
+	{
+		cout << "nie otwarto pliku" << endl;
+		return;
+	}
+	else
+	{
+		while (getline(plik, line, '+'))
+		{
+			getline(plik, line);
+			if (line.find(tof_str) != string::npos)
+			{
+				cout << foodName << ":" << endl << endl;
+				getline(plik, line);
+				line.assign(line, 2, line.size() - 2);
+				cout << "Sposob przyrzadzenia" << endl << line << endl;
+				while (getline(plik, line))
+				{
+					if (line[0] == '%')
+						break;
+					cout << line << endl;
+				}
+				line.assign(line, 1, line.size() - 1);
+				cout << "Skladniki" << endl << line << endl;
+				while (getline(plik, line))
+				{
+					if (line[0] == '+' or line[0] == '-')
+						break;
+					cout << line << endl;
+				}
+				break;
+			}
+		}
+	}
 }

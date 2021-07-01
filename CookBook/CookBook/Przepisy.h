@@ -8,8 +8,11 @@ class Przepisy
 	void wybierz_przepis(vector<string>, int&);
 	//wypisuje szukane przepisy w 3 kategoriach
 	void wypisz_przepisy(vector<string>foodNameVec, int wege_count, int vegan_count, int meat_count);
+	//dodaje do odpowiednie miejsce w pliku przepis podany przez uzytkownika
+	void insert_przepis_into_file(int,int);
 public:
 	void find_przepis();
+	void dodaj_przepis();
 
 };
 
