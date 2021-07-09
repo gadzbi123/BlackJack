@@ -1,5 +1,4 @@
 #include "FoodType.h"
-void wypisz_vector_str_counted(vector<string>x);
 
 void FoodType::ingredients()
 {
@@ -32,7 +31,7 @@ void FoodType::ingredients()
 			if (line != nameTod)
 				goto findFoodTime;
 
-			cout << "foodtime:" << line << endl;
+			//cout << "foodtime:" << line << endl;
 
 			while (getline(plik, line, '-'))
 			{
@@ -60,7 +59,7 @@ void FoodType::ingredients()
 				}
 			}
 			leaveLoop:
-			cout << "ingSize=" << ingredNameVec.size()<<endl;
+			//cout << "ingSize=" << ingredNameVec.size()<<endl;
 
 			//sort to remove errors
 			sort(ingredNameVec.begin(), ingredNameVec.end());
@@ -71,13 +70,14 @@ void FoodType::ingredients()
 			//remove '\n'
 			ingredNameVec.erase(ingredNameVec.begin());
 
-			wypisz_vector_str_counted(ingredNameVec);
+			funkcje_pomocnicze f;
+			f.wypisz_vector_str_counted(ingredNameVec);
 
 			ingredName=choose_ingredient(ingredNameVec);
-			cout << "ingredName:" << ingredName<<endl;
+			//cout << "ingredName:" << ingredName<<endl;
 			foodNameVec = find_ingredient_in_file(ingredName);
 
-			wypisz_vector_str_counted(foodNameVec);
+			f.wypisz_vector_str_counted(foodNameVec);
 			plik.close();
 		}
 	}
@@ -123,7 +123,7 @@ string FoodType::choose_ingredient(vector<string>ingredNameVec)
 		cout << "Ktory produkt chcesz wybrac do przepisu?" << endl<<"nr produktu: ";
 		if (cin >> input)
 		{
-			if (input > ingredNameVec.size() or input < 1)
+			if (input > static_cast<int>(ingredNameVec.size()) or input < 1)
 				cout << "tego produktu nie ma na liscie"<<endl;
 			else
 				break;
@@ -168,7 +168,7 @@ vector<string> FoodType::find_ingredient_in_file(string ingredName)
 			if (line != nameTod)
 				goto findFoodTime;
 
-			cout << "foodtime:" << line << endl;
+			//cout << "foodtime:" << line << endl;
 
 			while (getline(plik, line, '-'))
 			{
@@ -194,7 +194,7 @@ vector<string> FoodType::find_ingredient_in_file(string ingredName)
 		}
 	leaveLoop:
 		plik.close();
-		cout << "rozmiarVecfoodName:" << foodNameVec.size()<<endl;
+		//cout << "rozmiarVecfoodName:" << foodNameVec.size()<<endl;
 		return foodNameVec;
 	}
 }
