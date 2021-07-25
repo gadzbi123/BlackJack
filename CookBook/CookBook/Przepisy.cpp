@@ -250,13 +250,13 @@ void Przepisy::zapisz_plik_z_przepisami(int _tof,int _tod)
 void Przepisy::stworz_wlasny_przepis()
 {
 	string input,word;
-	
+
+	cin.ignore();
 	cout << "Podaj nazwe przepisu"<<endl;
-	cin >> input;
+	getline(cin, input);
 
 	input = "-" + input;
 	vec_wlasny_przepis.push_back(input+'\n');
-	cin.get();
 
 	cout << "Podaj sposob przyrzadzenia" << endl;
 	getline(cin, input);

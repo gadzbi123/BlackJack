@@ -1,127 +1,114 @@
 +Sniadanie
 
--Kanapka z Jajkiem i Tunczykiem
-= Jajko ugotowac na poltwardo (9 minut od wlozenia jajka z lodowki na goraca wode). Pieczywo opiec lekko w tosterze, przestudzic. Posmarowac maslem.
-Ulozyc listki rukoli, kawalki tunczyka i plasterki jajka. Polac musztarda i posypac piorkami cebuli. Doprawic sola i pieprzem.
+-
+= o jo
 
-%pieczywo
-maslo
-jajka
-tunczyk
-cebula
+%j
+ja
 
--Jajka Zapiekane w Tostach z Pomidorami
-= Piekarnik nagrzac do 180 stopni C. Pomidora sparzyc, obrac ze skorki i pokroic w kosteczke. Dodac drobno posiekana cebule i opcjonalnie papryczke chili, doprawic szczypta soli.
-Wykroic miazsz ze srodka pieczywa i podsmazyc kromki na zloty kolor na patelni na masle i oliwie. Odwrocic, w srodki wbic jajka, doprawic sola. Obok wylozyc pomidory i wstawic do piekarnika (jesli raczka patelni nie jest zaroodporna, mozna zawinac ja w folie aluminiowa).
-Zapiekac przez ok. 10 minut az bialka jajek beda sciete. Podawac ze swieza bazylia lub kolendra.
 
-%pomidory
-cebula
-pieczywo
-maslo
-jajka
-
--Jajecznica z Wedzonym Lososiem i Szczypiorkiem
-= Jajka wbic do miseczki. Buleczki przekroic na pol, opiec w tosterze i po ostygnieciu posmarowac maslem. Rozgrzac patelnie na mala moc i rozpuscic na niej 2 lyzki masla, dodac jajka i oproszyc delikatnie sola (losos wedzony moze byc dosc slony). Smazyc na malym ogniu, przez niecala minute, delikatnie przesuwajac jajka drewniana lyzka, tak aby delikatnie sie sciely, ale nadal pozostaly wilgotne i w wiekszych kawalkach.
-Jak tylko bialka beda juz prawie calkiem sciete, dodac lososia i szczypiorek, doprawic swiezo zmielonym czarnym pieprzem. Delikatnie wymieszac, zdjac z patelni i rozlozyc po rowno na kazdej polowce buleczki.
+-Salatka Jajeczna z Selerem
+= Jajka ugotowac na twardo, obrac i posiekac w kosteczke.
+Selera odcedzic i odcisnac (lekko, aby pozostal soczysty). Pokroic na mniejsze kawalki.
+Ananasa wyjac z zalewy i pokroic w kosteczke (jesli uzywamy kukurydze odsaczyc ja na sitku). Tak samo pokroic ser zolty.
+Polaczyc wszystkie skladniki salatki z majonezem i umiescic w salaterce. Posypac obficie rzezucha lub posiekana natka.
 
 %jajka
-losos
-szczypiorek
+seler
+ananas
+ser
+majonez
+
+-Szakszuka z Kurkami
+= Pomidory sparzyc i obrac ze skorki, miazsz pokroic w kosteczke. Kurki umyc i osuszyc.
+Na patelnie wlozyc maslo i posiekana cebulke, chwile podsmazyc. Dodac kurki i poddusic przez 1,2 minuty.
+Dodac pomidory, doprawic sola, pieprzem. Wymieszac i smazyc na wiekszym ogniu ok. 5 minut, juz bez mieszania (wowczas pomidory odparuja i zachowaja swoja strukture, jesli bedziemy mieszac zrobi sie przecier).
+Do podsmazonych pomidorow wbic jajka. Doprawic sola i gotowac ok. 5 minut lub do czasu az bialka jajek beda sciete (mozna pod koniec na chwile przykryc wowczas nastapi to szybciej).
+
+%pomidor
+kurki
 maslo
-pieczywo
+cebula
+jajka
+
+-Owsianka z Prazonymi Jablkami
+= Platki owsiane wsypac do garnka i wyplukac kilkakrotnie zmieniajac wode. Odcedzic, wlac mleko, dodac odrobine soli i zagotowac.
+Zmniejszyc ogien i gotowac do miekkosci przez ok. 15 minut, co chwile mieszajac, doprawic cukrem. W miedzyczasie przygotowac jablka. Gdyby owsianka byla za gesta, dodajemy wiecej mleka. Jablka obrac, pokroic na cwiartki, usunac gniazda nasienne. Jablka pokroic w kosteczke, wlozyc do garnka, dodac cukier i co chwile mieszajac gotowac przez ok. 15 minut, lub do czasu az jablka zmiekna. Pod koniec doprawic cynamonem (ok. 1 lyzeczki).
+Owsianke nalozyc do miseczek, dodac jablka i opcjonalnie posypac brazowym cukrem lub skropic syropem klonowym.
+
+%platki owsiane
+mleko
+cukier
+jablka
+cynamon
 
 +Obiad
 
--Spaghetti
-= klej do gara i sie jara
+-Zapiekanka Warzywna z Batatem i Cukinia
+= Piekarnik nagrzac do 190 stopni C. Batata obrac i pokroic w kostke. Cukinie umyc i pokroic w nieco wieksza kostka.
+Cebule obrac z zewnetrzych suchych lupin i pokroic na paseczki. Zabki czosnku pozostawic w lupinkach.
+Warzywa doprawic pieprzem, oregano i pieprzem cayenne, nastepnie wymieszac z oliwa (nie solic na tym etapie, bo warzywa puszcza soki).
+Warzywa ulozyc na blaszce do pieczenia (ok. 20 x 30 cm) lub naczyniu zaroodpornym i piec przez 30 minut bez przykrycia.
+Nastepnie dodac pokrojonego w kostke pomidora oraz kuleczki mozzarelli i piec jeszcze przez ok. 10,15 minut.
+Przed podaniem mozna warzywa posolic.
 
-%makaron
-mieso
+%bataty
+cukinia
+cebula
+czosnek
+oliwa
 pomidor
 
+-Placki z Cukinii z Feta
+= Cukinie przyciac na koncach, nastepnie zetrzec na tarce o wiekszych oczkach. Umiescic w misce, dodac lyzke soli i wymieszac. Odstawic na okolo pol godziny, nastepnie odcisnac z soku.
+Wlozyc z powrotem do miski, dodac starta na tarce fete, make, jajko, posiekane ziola i szczypiorek jesli uzywamy. Doprawic pieprzem oraz sola w razie potrzeby i wymieszac.
+Rozgrzac patelnie, natluscic ja, nakladac porcje cukinii i smazyc przez ok. 3 minuty na zloty kolor, nastepnie przewrocic na druga strone i powtorzyc smazenie.
 
--Leczo z Batatami i Chorizo
-= Do garnka wlac oliwe, dodac pokrojona na polplasterki cebule oraz pokrojony w kosteczke czosnek. Wymieszac i zeszklic na umiarkowanym ogniu przez 1,2 minuty.
-Zdjac cienka skorke z kielbasy chorizo i pokroic na polplasterki. Dodac do garnka, wymieszac i podsmazac przez ok. 2 - 3 minuty.
-Dodac obranego i pokrojonego w kostke batata i wszystko wymieszac. Podsmazac przez ok. 2 - 3 minuty.
-Dodac pokrojona w kostke cuknie, przyprawy, doprawic sola i pieprzem oraz wlac bulion. Zagotowac.
-Dodac pokrojona w kostke papryke, delikatnie wymieszac i gotowac pod lekko uchylona pokrywa przez ok. 5 minut. W miedzyczasie 1 raz zamieszac.
-Dodac pomidory (jesli sa w calosci, z puszki nalezy je posiekac). Dodac koncentrat pomidorowy, wymieszac i gotowac przez ok. 5 minut.
-
-%cebula
-czosnek
-bataty
-chorizo
-cukinia
-pomidory
-pieczywo
-
--Krewetki z Maslem i Czosnkiem
-= Krewetki rozmrozic jesli byly mrozone. Oplukac i dokladnie osuszyc. Doprawic sola oraz pieprzem i ulozyc w wiekszym naczyniu zaroodpornym.
-Piekarnik nagrzac do 180 stopni C.
-Do rondelka wlozyc maslo, dodac starty lub przecisniety przez praske czosnek i zagotowac, nastepnie gotowac jeszcze przez okolo minute. Odstawic z ognia, dodac sok z cytryny oraz posiekana natke pietruszki. Wymieszac i polac po krewetkach.
-Dokladnie wymieszac zawartosc naczynia i posypac platkami chili. Tak przygotowane danie mozna od razu zapiekac lub odstawic do zamarynowania.
-Wstawic do piekarnika i piec bez przykrycia przez ok. 10 minut (surowe wieksze krewetki) lub 8 minut (podgotowane, mniejsze). Podawac z pieczywem (np. bagietka, ciabatta).
-
-%krewetki
-maslo
-czosnek
+%cukinia
+feta
+jajka
+maka
 pietruszka
 
--Parmigiana z Kurczaka
-= Filety z kurczaka oczyscic z blonek i kostek, odkroic poledwiczke, przekroic wzdluz na 2 ciensze filety, rozbic je w najgrubszej czesci na kotlety o mniej wiecej podobnej grubosci. Doprawic je sola, pieprzem i lyzeczka suszonego oregano.
-Ugotowac sos pomidorowy: w rondelku na lyzce oliwy delikatnie podsmazyc starty czosnek, dodac lyzeczke suszonego oregano oraz pomidory z puszki. Doprawic sola, pieprzem, szczypta platkow chili (lub do smaku) oraz w razie potrzeby szczypta cukru, zagotowac. Gotowac przez ok. 10 minut pod uchylona pokrywa.
-Piekarnik nagrzac do 190 stopni C. Filety z kurczaka maczac w roztrzepanym jajku, nastepnie w bulce tartej. Obsmazyc na oliwie i masle na zloty kolor po ok. 2,3 minuty z kazdej strony i odlozyc na talerz.
-Mozzarelle w kulce zetrzec na tarce o wiekszych oczkach, natomiast parmezan zetrzec na tarce o malych oczkach. Obydwa sery wymieszac ze soba.
-Do naczynia zaroodpornego wlozyc polowe sosu pomidorowego, ulozyc podsmazone filety, posypac polowa mieszanki serow, nastepnie miejscami wylozyc reszte sosu i calosc zapiekanki posypac reszta serow. Po wierzchu posypac listkami tymianku lub bazylii.
-Wstawic do nagrzanego piekarnika i piec przez 15 minut.
+-Kotlety z Kalafiora
+= Do duzego garnka wlozyc kalafiora i zalac woda. Posolic i zagotowac. Gotowac przez ok. 15 minut. Odcedzic, pokroic na kawalki i przestudzic (ok. 10 - 15 minut).
+Rozdrobnic w melakserze lub rozdrabniaczu pozbywajac sie lisci i tylko najtwardszych czesci kalafiora. Wykorzystac cale rozyczki z nozkami. Mozna tez rozgniesc kalafiora praska do ziemniakow.
+Rozdrobnionego kalafiora wlozyc do miski, dodac sol, zmielony pieprz, 4 lyzki bulki tartej, jajka, szczypiorek, przecisniety przez praske czosnek oraz wiorki kokosowe jesli chcemy ich uzyc (dodaja ciekawego smaku kotletom). Calosc wymieszac.
+Formowac kotlety i obtaczac je w bulkce tartej. Klasc na rozgrzana patelnie z tluszczem i smazyc na umiarkowanym ogniu przez ok. 4 - 5 minut z kazdej strony (delikatnie przewrocic na lopatce dopiero po calkowitym wysmazeniu z jednej strony). Najlepiej smazyc kotlety partiami, aby nie byly za bardzo stloczone na patelni, np. po 4 sztuki jednoczesnie.
 
-%kurczak
-pomidory
-olej
-maslo
-parmezan
-mozarella
+%kalafior
+jajka
 czosnek
+oliwa
+bulka tarta
 
 +Kolacja
 
--Nalesniki Maslankowe
-= Zmiksowac skladniki ciasta nalesnikowego (na jednolita mase bez grudek maki), mozna uzyc miksera lub trzepaczki. Odstawic na okolo 30 minut.
-Rozgrzac i natluscic patelnie mala iloscia tluszczu (mozna tez smazyc nalesniki beztluszczowo jesli jest taka koniecznosc).
-Nakladac porcje ciasta za pomoca lyzki wazowej lub miarki kuchennej o pojemnosci ok. 1/3 szklanki, rozprowadzic po calej patelni.
-Smazyc z dwoch stron i odkladac na talerz. Przekladac nadzieniem serowym.
+-Kokosowe Musli z Truskawkami
+= Platki owsiane zalac woda kokosowa z ksylitolem, dodac wiorki kokosowe i rodzynki, wymieszac i zostawic na noc do namoczenia (lub w wersji ekspresowej na 1 - 2 godziny).
+Rano dodac mleko kokosowe, wymieszac i podawac z pokrojonymi truskawkami oraz opcjonalnie dodatkowym gestym mlekiem kokosowym (lub smietanka).
 
-%jajka
-mleko
-maslanka
-maslo
-twarog
-smietana
+%platki owsiane
+rodzynki
+truskawki
+mleko kokosowe
 
--Makaron z Fasola Szparagowa i Feta
-= Nastawic duzy garnek z osolona woda, zagotowac, wrzucic makaron i gotowac przez ok. 5 minut. W miedzyczasie oplukac fasolke, odciac konce i pokroic na kawalki. Dodac do garnka z makaronem i gotowac do miekkosci (makaronu i fasolki) przez ok. 10 minut.
-Odcedzic i wlozyc z powrotem do garnka. Dodac oliwe, fete pokrojona w kosteczke, szczypte zmielonego pieprzu oraz polowe tartego sera. Wymieszac i wylozyc do talerzy.
-Posypac reszta sera i podawac. Mozna dodatkowo skrapiac oliwa i posypac listkami bazylii.
+-Placki Kukurydziane
+= Kukurydze odcedzic i rozmiksowac z dodatkiem kurkumy i papryki w proszku w rozdrabniaczu lub blenderem (na papke z kawalkami kukurydzy mniejszej i wiekszej wielkosci).
+Przelozyc do miski, dodac posiekana bazylie, mleko oraz jajko i wymieszac. Dodac make z proszkiem do pieczenia, doprawic sola i delikatnie wymieszac na jednolita mase.
+Rozgrzac patelnie, posmarowac ja olejem, nalozyc po ok. 1 i 1/2 lyzki masy na 1 placka i delikatnie rozprowadzic na grubosc ok. 7 mm. Smazyc bez przewracania przez ok. 1,5 minuty az beda zrumienione od spodu i urosna. Wowczas przewrocic na druga strone i powtorzyc smazenie.
+Zdjac z patelni i powtorzyc z koleja porcja plackow. Na lepiej rozgrzanej patelni placki moga sie szybciej usmazyc.
 
-%makaron
-fasola szparagowa
-feta
-ser
-oliwa
-
--Tosty z Jajecznica Boczkiem i Awokado
-= Na patelnie wlozyc pokrojony na mniejsze kawalki boczek. Skropic oliwa i smazyc przez ok. 4 minuty z kazdej strony na umiarkowanym ogniu, az sie wytopi i zrumieni.
-Na drugiej patelni na masle usmazyc jajecznice, doprawic sola i pieprzem. 
-Awokado obrac i pokroic na plasterki.
-Pieczywo opiec w tosterze, polozyc na talerzu, wylozyc jajecznice przekladajac awokado i kawalkami boczku.
-
-%boczek
-oliwa
-maslo
+%kukurydza
 jajka
-awokado
-pieczywo
+smietana
+olej
 
+-Smoothie Bowl
+= Obrac mango, miazsz odkroic od pestki, wlozyc do pojemnika blendera, dodac obranego banana, jogurt oraz sok. Zmiksowac na gladki koktajl.
+Wylozyc do miseczki, ulozyc owoce, dodac orzechy lub inne dodatki, mozna skropic syropem.
 
+%mango
+banan
+jogurt
+sok jablkowy
